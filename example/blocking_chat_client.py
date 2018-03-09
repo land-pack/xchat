@@ -9,6 +9,11 @@ name = raw_input("Please input your name: ")
 host_address = "ws://localhost:9001/ws?name={}".format(name)
 ws = create_connection(host_address)
 
+# Fetch online player
+online_player = ws.recv()
+
+print 'Online player', online_player
+
 
 receiver_flag = []
 

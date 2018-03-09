@@ -38,6 +38,11 @@ class PlayManager(object):
         cls.pub(msg, white_list=receivers)
         
 
+    @classmethod
+    def member(cls):
+        return ujson.dumps(cls.name2connection.keys())
+        
+
 
 class WebSocketHandler(tornado.websocket.WebSocketHandler):
     
@@ -62,7 +67,8 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         data_str = ujson.dumps(data)
         PlayManager.pub(data_str)
         PlayManager.join(name, self)
-
+        
+        PlayManager.pub(PlayManager.member(), black_list=name)
 
 
     def on_message(self, message):
